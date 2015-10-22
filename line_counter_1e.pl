@@ -49,14 +49,13 @@ foreach (@lines) {
 #			push @{$acc_list{'sec_structs'}}, $sec_struct_2;
 #		}
 
-		my $acc_list = $aa_counters{$res}{'accessibilities'};
-		push @{$acc_list{'acc_all_atom_abs'}}, $acc_all_atom_abs;
-		push @{$acc_list{'acc_all_atom_rel'}}, $acc_all_atom_rel;
-		push @{$acc_list{'acc_side_abs'}}, $acc_side_abs;
-		push @{$acc_list{'acc_side_rel'}}, $acc_side_rel;
-		push @{$acc_list{'sec_structs'}}, $sec_struct_1;
+		push @{$aa_counters{$res}{'accessibilities'}{'acc_all_atom_abs'}}, $acc_all_atom_abs;
+		push @{$aa_counters{$res}{'accessibilities'}{'acc_all_atom_rel'}}, $acc_all_atom_rel;
+		push @{$aa_counters{$res}{'accessibilities'}{'acc_side_abs'}}, $acc_side_abs;
+		push @{$aa_counters{$res}{'accessibilities'}{'acc_side_rel'}}, $acc_side_rel;
+		push @{$aa_counters{$res}{'accessibilities'}{'sec_structs'}}, $sec_struct_1;
 		if ($sec_struct_2 ne '-') {
-			push @{$acc_list{'sec_structs'}}, $sec_struct_2;
+			push @{$aa_counters{$res}{'accessibilities'}{'sec_structs'}}, $sec_struct_2;
 		}
 		
 		print scalar($aa_counters{$res}{'accessibilities'}{'acc_side_rel'})." says hello?\n";
