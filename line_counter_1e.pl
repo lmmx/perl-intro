@@ -21,8 +21,6 @@ open(IFILE, $file) or die "Cannot open the file $file\n";
 
 @lines = <IFILE>;
 
-my @accessibilities;
-
 foreach (@lines) {
 	if ($_ =~ /^RES/) {
 		my @splitline = split(/\s/, $_);
@@ -36,23 +34,34 @@ foreach (@lines) {
 		my $sec_struct_2 = $splitline[8];
 
 		# The residue name is now used to make a hash reference
-
+		
+#		my %accessibilities = (
+#			'acc_all_atom_abs' => $acc_all_atom_abs,
+#			'acc_all_atom_rel' => $acc_all_atom_rel,
+#			'acc_side_abs' => $acc_side_abs,
+#			'acc_side_rel' => $acc_side_rel,
+#			'sec_struct_1' => $sec_struct_1,
+#			'sec_struct_2' => $sec_struct_2,
+#		)
+		
 		# The thin arrow operator "->" dereferences this hash
 		# allowing it to be auto-incremented (with "++").
 		$aa_counters{$res}->{"count"}++;
-		# Look up scoping
-		$aa_counters{$res}->{"accessibilities"} = \%accessibilities;
+#		$aa_counters{$res}->{"accessibilities"} = \%accessibilities;
 	}
 }
 
 foreach my $key (sort keys %aa_counters) {
 	# Print counts for alphabetised list of residue names
 	foreach $hashkey (keys $aa_counters{$key}) {
-		if ($hashkey == "") {
-			print "$key has $aa_counters{$key}{$hashkey} residues.\n";
-		} elsif ($hashkey == "") {
-			print "$key";
+		my ($count_str. $access_str);
+		if ($hashkey eq "count") {
+			$count_str = "$key has $aa_counters{$key}{$hashkey} residues.";
+		} elsif ($hashkey eq "accessibilities") {
+			# dereference the hash-within-a-hash...
+			# $access_str = "$aa_counters{key}{hashkey}";
 		}
+		print "$countstr, with total accessibility: $access_str.\n";
 	};
 #	print "There are $aa_counters{$key}{$count} $key residues in $file.\n";
 }
